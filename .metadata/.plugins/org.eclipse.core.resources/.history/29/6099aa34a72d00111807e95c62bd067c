@@ -1,0 +1,34 @@
+package com.example.demo.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import com.example.demo.entity.User;
+import com.example.demo.service.UserService;
+
+@RestController
+@RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:3000")
+public class UserController {
+
+    @Autowired
+    private UserService service;
+
+    // Register API
+    @PostMapping("/register")
+    public User register(@RequestBody User user) {
+        return service.register(user);
+    }
+
+    // Login API
+    @PostMapping("/login")
+    public User login(@RequestBody User user) {
+        return service.login(user.getUsername(), user.getPassword());
+    }
+
+    // Get User API
+    @GetMapping("/user/{id}")
+    public User getUser(@PathVariable Long id) {
+        return service.getUser(id);
+    }
+}
